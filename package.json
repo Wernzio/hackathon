@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "heroku-postbuild": "cd firebase && npm install && ./node_modules/.bin/firebase-server"
+    "heroku-postbuild": "cd firebase && npm install && node ./node_modules/.bin/firebase-server"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
