@@ -5763,7 +5763,7 @@ firepad.Firepad = (function(global) {
 
       recognition.onend = function(){
           if (transcript) {
-            fb.insertTextAtCursor(globalName + ": ");
+            fb.insertHtmlAtCursor('<strong>' + globalName + "</strong>:&nbsp");
             fb.insertTextAtCursor(transcript);
             fb.insertTextAtCursor("\n");
           }
