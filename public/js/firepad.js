@@ -5697,7 +5697,8 @@ firepad.Firepad = (function(global) {
   };
 
   Firepad.prototype.codeinsert = function() {
-    this.richTextCodeMirror_.codeinsert();
+    this.makeDialog_('code-input', 'Paste code here');
+    // this.richTextCodeMirror_.codeinsert();
     this.codeMirror_.focus();
   };
 
