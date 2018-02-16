@@ -1739,7 +1739,7 @@ firepad.RichTextToolbar = (function(global) {
 
   utils.makeEventEmitter(RichTextToolbar, ['bold', 'italic', 'underline', 'strike', 'font', 'font-size', 'color',
     'left', 'center', 'right', 'unordered-list', 'ordered-list', 'todo-list', 'indent-increase', 'indent-decrease',
-                                           'undo', 'redo', 'insert-image', 'code']);
+                                           'undo', 'redo', 'insert-image', 'code', 'voice']);
 
   RichTextToolbar.prototype.element = function() { return this.element_; };
 
@@ -1767,7 +1767,8 @@ firepad.RichTextToolbar = (function(global) {
       utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { 'class': 'firepad-btn-group'}),
       utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { 'class': 'firepad-btn-group'}),
       utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { 'class': 'firepad-btn-group'}),
-      utils.elt('div', [self.makeButton_('code')], { 'class': 'firepad-btn-group'})
+      utils.elt('div', [self.makeButton_('code')], { 'class': 'firepad-btn-group'}),
+      utils.elt('div', [self.makeButton_('voice')], { 'class': 'firepad-btn-group'})
     ];
 
     if (self.imageInsertionUI) {
@@ -3983,6 +3984,9 @@ firepad.RichTextCodeMirror = (function () {
     alert('Todo: make this actually work');
   }
 
+  RichTextCodeMirror.prototype.voiceTranslation = function() {
+      alert('boom voice');
+  }
   RichTextCodeMirror.prototype.getText = function() {
     return this.codeMirror.getValue().replace(new RegExp(LineSentinelCharacter, "g"), '');
   };
@@ -5702,6 +5706,10 @@ firepad.Firepad = (function(global) {
     this.codeMirror_.focus();
   };
 
+  Firepad.prototype.startVoiceTranslation = function() {
+      this.richTextCodeMirror_.voiceTranslation();
+  }
+
   Firepad.prototype.undo = function() {
     this.codeMirror_.undo();
   };
@@ -5795,6 +5803,7 @@ firepad.Firepad = (function(global) {
     this.toolbar.on('indent-decrease', this.unindent, this);
     this.toolbar.on('code', this.codeinsert, this);
     this.toolbar.on('insert-image', this.makeImageDialog_, this);
+    this.toolbar.on('voice', this.startVoiceTranslation, this);
 
     this.firepadWrapper_.insertBefore(this.toolbar.element(), this.firepadWrapper_.firstChild);
   };
