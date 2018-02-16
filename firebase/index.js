@@ -1,6 +1,6 @@
 var FirebaseServer = require('firebase-server');
 
-new FirebaseServer(5000, '127.0.1', {
+new FirebaseServer(5000, `${process.env.TEXT_EDITOR_DOMAIN || 'locahost'}`, {
     states: {
         CA: 'California',
         AL: 'Alabama',
@@ -8,7 +8,7 @@ new FirebaseServer(5000, '127.0.1', {
     }
 });
 
-var client = new Firebase('ws://127.0.1:5000');
+var client = new Firebase(`ws://${process.env.TEXT_EDITOR_DOMAIN || 'locahost'}:5000`);
 client.on('value', function(snap) {
     console.log('Got value: ', snap.val());
 });
