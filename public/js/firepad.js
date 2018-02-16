@@ -18,6 +18,12 @@
   else context[name] = definition();
 })('Firepad', function () {var firepad = firepad || { };
 
+var isRecording = false;
+function toggleRecording() {
+  isRecording = !isRecording;
+  $('.firepad-tb-voice').toggleClass('recording-inprogress');
+}
+
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -5744,14 +5750,22 @@ firepad.Firepad = (function(global) {
     this.codeMirror_.focus();
   };
 
+  var recognition;
   Firepad.prototype.startVoiceTranslation = function() {
+      toggleRecording();
+
+
       let transcript;
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();;
+      recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();;
       recognition.interimResults = true;
       recognition.lang = 'en-US';
 
 
       recognition.onresult = function(e) {
+          if (!isRecording) {
+            recognition.stop();
+          }
+
           transcript = Array.from(e.results)
           .map(result => result[0])
           .map(result => result.transcript)
@@ -5762,6 +5776,7 @@ firepad.Firepad = (function(global) {
       var fb = this;
 
       recognition.onend = function(){
+        if (isRecording) {
           if (transcript) {
             fb.insertHtmlAtCursor('<strong>' + globalName + "</strong>:&nbsp");
             fb.insertTextAtCursor(transcript);
@@ -5769,6 +5784,7 @@ firepad.Firepad = (function(global) {
           }
           transcript = '';
           recognition.start();
+        }
       }
   }
 
