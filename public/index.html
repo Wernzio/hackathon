@@ -4,21 +4,6 @@
 
 <head>
   <meta charset="utf-8" />
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-
-  <!-- CodeMirror -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
-
-  <!-- Firepad -->
-  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
-  <script src="js/firepad.js"></script>
-
-  <!-- Include example userlist script / CSS.
-       Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
-  <script src="js/firepad-userlist.js"></script>
-  <link rel="stylesheet" href="css/firepad-userlist.css" />
 
   <style>
     html { height: 100%; }
@@ -43,19 +28,23 @@
     function init() {
       //// Initialize Firebase.
       //// TODO: replace with your Firebase project configuration.
-	  var config = {
-	    apiKey: "AIzaSyD_pmP8BzPVJQ6CblRckWCCrfasTq9dH8I",
-	    authDomain: "text-editor-cd7cf.firebaseapp.com",
-	    databaseURL: "https://text-editor-cd7cf.firebaseio.com",
-	    projectId: "text-editor-cd7cf",
-	    storageBucket: "text-editor-cd7cf.appspot.com",
-	    messagingSenderId: "51664469722"
-	  };
+      var config = {
+        apiKey: "AIzaSyB4-sYJgPQQafDk0-KZUhl0dJkyaY_0Kxk",
+        authDomain: "text-editor-9875a.firebaseapp.com",
+        databaseURL: "https://text-editor-9875a.firebaseio.com",
+        projectId: "text-editor-9875a",
+        storageBucket: "",
+        messagingSenderId: "828524359016"
+      };
       firebase.initializeApp(config);
       //// Get Firebase Database reference.
       var firepadRef = getExampleRef();
       //// Create CodeMirror (with lineWrapping on).
-      var codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true });
+      var codeMirror = CodeMirror(document.getElementById('firepad'), {
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: 'javascript'
+      });
       // Create a random ID to use as our user ID (we must give this to firepad and FirepadUserList).
       var userId = Math.floor(Math.random() * 9999999999).toString();
       //// Create Firepad (with rich text features and our desired userId).
@@ -89,3 +78,26 @@
   </script>
 </body>
 </html>
+<footer>
+    <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+
+  <!-- CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
+  <script src="js/firepad.js"></script>
+
+  <!-- Include example userlist script / CSS.
+       Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
+  <script src="js/firepad-userlist.js"></script>
+  <link rel="stylesheet" href="css/firepad-userlist.css" />
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</footer>
