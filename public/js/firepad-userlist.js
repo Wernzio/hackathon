@@ -27,6 +27,7 @@ var FirepadUserList = (function() {
   // This is the primary "constructor" for symmetry with Firepad.
   FirepadUserList.fromDiv = FirepadUserList;
 
+
   FirepadUserList.prototype.dispose = function() {
     this.removeFirebaseCallbacks_();
     this.ref_.child(this.userId_).child('name').remove();
@@ -70,6 +71,7 @@ var FirepadUserList = (function() {
 
     var nameInput = elt('input', null, { type: 'text', 'class': 'firepad-userlist-name-input'} );
     nameInput.value = this.displayName_;
+    window.globalName = this.displayName_;
 
     var nameHint = elt('div', 'ENTER YOUR NAME', { 'class': 'firepad-userlist-name-hint'} );
     if (this.hasName_) nameHint.style.display = 'none';
@@ -83,6 +85,7 @@ var FirepadUserList = (function() {
       nameHint.style.display = 'none';
       nameInput.blur();
       self.displayName_ = name;
+      window.globalName = self.displayName_;
       stopEvent(e);
     });
 
