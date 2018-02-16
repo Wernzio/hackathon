@@ -1,10 +1,30 @@
+html { height: 100%; }
 body {
-  padding: 50px;
+  margin: 0; height: 100%; 
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+#userlist {
+  min-width:175px;
+  display:inline;
+  height: auto;
+}
+#firepad {
+  display:inline;height: auto;
 }
 
 a {
   color: #00B7FF;
+}
+
+.navbar {
+    background-color: rgba(8,70,168,0.9) !important;
+}
+
+.navbar-brand {
+   color: rgba(255,255,255,.9)!important;
+   margin: 5px auto;
 }
 
 .firepad-tb-code:after {
@@ -12,5 +32,9 @@ a {
 }
 
 pre.codeblock.codeblock {
-	font-family: monospace;
+    font-family: monospace;
+}
+
+.powered-by-firepad {
+	display: none;
 }
