@@ -1,6 +1,6 @@
 var FirebaseServer = require('firebase-server');
 
-new FirebaseServer(5000, 'localhost.firebaseio.test', {
+new FirebaseServer(5000, 'localhost', {
     states: {
         CA: 'California',
         AL: 'Alabama',
@@ -8,7 +8,7 @@ new FirebaseServer(5000, 'localhost.firebaseio.test', {
     }
 });
 
-var client = new Firebase('ws://localhost.firebaseio.test:5000');
+var client = new Firebase('ws://localhost:5000');
 client.on('value', function(snap) {
     console.log('Got value: ', snap.val());
 });
