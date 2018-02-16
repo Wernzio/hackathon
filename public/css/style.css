@@ -10,3 +10,7 @@ a {
 .firepad-tb-code:after {
 	content:'{ }';
 }
+
+pre.codeblock.codeblock {
+	font-family: monospace;
+}

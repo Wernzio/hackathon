@@ -17,6 +17,17 @@
   else if (typeof context['define'] == 'function' && context['define']['amd']) define(definition);
   else context[name] = definition();
 })('Firepad', function () {var firepad = firepad || { };
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
 firepad.utils = { };
 
 firepad.utils.makeEventEmitter = function(clazz, opt_allowedEVents) {
@@ -2756,6 +2767,7 @@ firepad.EntityManager = (function () {
     var attrs = ['src', 'alt', 'width', 'height', 'style', 'class'];
     this.register('img', {
       render: function(info) {
+
         utils.assert(info.src, "image entity should have 'src'!");
         var attrs = ['src', 'alt', 'width', 'height', 'style', 'class'];
         var html = '<img ';
@@ -2766,6 +2778,31 @@ firepad.EntityManager = (function () {
           }
         }
         html += ">";
+        return html;
+      },
+      fromElement: function(element) {
+        var info = {};
+        for(var i = 0; i < attrs.length; i++) {
+          var attr = attrs[i];
+          if (element.hasAttribute(attr)) {
+            info[attr] = element.getAttribute(attr);
+          }
+        }
+        return info;
+      }
+    });
+
+    this.register('codeblock', {
+      render: function(info) {
+        utils.assert(info.src, "Code cannot be blank");
+        var attrs = ['src', 'class'];
+        var htmlID = makeid();
+        var html = '<pre><code id="' + htmlID + '" class="javascript">';
+        html += info.src;
+        html += '</code></pre>';
+        setTimeout(function(){
+           hljs.highlightBlock($('#' + htmlID)[0]);
+        }, 0);
         return html;
       },
       fromElement: function(element) {
@@ -5721,7 +5758,7 @@ firepad.Firepad = (function(global) {
   };
 
   Firepad.prototype.codeinsert = function() {
-    this.makeDialog_('code-input', 'Paste code here');
+    this.makeDialog_('codeblock', 'Paste code here');
     // this.richTextCodeMirror_.codeinsert();
     this.codeMirror_.focus();
   };
@@ -5785,7 +5822,7 @@ firepad.Firepad = (function(global) {
      self.firepadWrapper_.removeChild(dialog);
    };
 
-   var input = utils.elt('input', null, { 'class':'firepad-dialog-input', 'id':id, 'type':'text', 'placeholder':placeholder, 'autofocus':'autofocus' });
+   var input = utils.elt('textarea', null, { 'class':'firepad-dialog-input', 'id':id, 'type':'text', 'placeholder':placeholder, 'autofocus':'autofocus' });
 
    var submit = utils.elt('a', 'Submit', { 'class': 'firepad-btn', 'id':'submitbtn' });
    utils.on(submit, 'click', utils.stopEventAnd(cb));
