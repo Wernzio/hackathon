@@ -3985,7 +3985,27 @@ firepad.RichTextCodeMirror = (function () {
   }
 
   RichTextCodeMirror.prototype.voiceTranslation = function() {
-      alert('boom voice');
+      // alert('boom voice');
+      let transcript;
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+
+      recognition.onresult = function(e) {
+          transcript = Array.from(e.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('');
+          const poopScript = transcript.replace(/poop|poo|shit|dump/gi, 'beeeeeep...');
+      }
+
+      recognition.start();
+
+      recognition.onend = function(){
+          console.log(transcript);
+          recognition.start();
+      }
   }
   RichTextCodeMirror.prototype.getText = function() {
     return this.codeMirror.getValue().replace(new RegExp(LineSentinelCharacter, "g"), '');
